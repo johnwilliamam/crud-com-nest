@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { EmployeeService, UsersService } from './users/users.service';
 
 
 @Module({
@@ -18,9 +21,10 @@ import { UsersModule } from './users/users.module';
       autoLoadEntities: true,
       
     }),
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [UsersService, EmployeeService, AuthModule],
 })
 export class AppModule {
   constructor(private connection: Connection) {}

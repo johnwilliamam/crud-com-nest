@@ -59,5 +59,25 @@ export class UsersService {
     console.log('error:', err.message)
   }
 } 
+}
 
+export type Employee = any;
+
+export class EmployeeService {
+  private readonly employee = [
+    {
+      userId: 1,
+      username: 'John',
+      password: 'Teste',
+    },
+    {
+      userId: 2,
+      username: 'William',
+      password: 'guess',
+    },
+  ];
+
+  async findOne(username: string): Promise<Employee | undefined> {
+    return this.employee.find(employee => employee.username === username);
+  }
 }
