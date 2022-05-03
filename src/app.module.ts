@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { EmployeeService, UsersService } from './users/users.service';
@@ -22,9 +23,10 @@ import { EmployeeService, UsersService } from './users/users.service';
       
     }),
     AuthModule,
+    AppService
   ],
   controllers: [AppController],
-  providers: [UsersService, EmployeeService, AuthModule],
+  providers: [UsersService, EmployeeService, AuthModule, AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
