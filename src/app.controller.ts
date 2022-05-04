@@ -10,6 +10,7 @@ async login(@Request() req){
   return req.user;
 }
 constructor(private readonly hello: AppService) {}
+
 @Get('/')
 initial(){
   return this.hello.getHello();
