@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { EmployeeService } from '../users/users.service'
+import { compareSync } from 'bcrypt';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly employeeService: EmployeeService) {}
+  constructor(private readonly usersService: UsersService) {}
 
-    async validateUser(username: string, pass: string): Promise<any>{
-        const employee = await this.employeeService.findOne(username);
-        if(employee && employee.password === pass){
-            const { password, ...result } = employee;
-            return result;
-        }
-        return null;
+  async validateUser(userEmail: string, password: string) {
+    const user = await this.usersService.findUserByEmail(userEmail);
+    const validPassword = compareSync(password, user.password);
+    if(user.demitido){
+     throw new Error("You haven't access");
     }
-
+    if (validPassword) {
+      const { name, email, cargo } = user
+      return { name, email, cargo }
+    }
+  }
 }

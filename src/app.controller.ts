@@ -1,34 +1,28 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
+constructor(private readonly hello: AppService) {}
 @UseGuards(AuthGuard('local'))
 @Post('auth/login')
 async login(@Request() req){
   return req.user;
 }
-constructor(private readonly hello: AppService) {}
+@Post('/teste')
+async teste(@Request() req) {
+  console.log(req.data);
+  return JSON.stringify(req.data);
+}
+
+@Get('/json')
+async js(@Request() req) {}
 
 @Get('/')
 initial(){
   return this.hello.getHello();
-}
-
-  /* @Get('/teste')  
-async index() {
-    const express = require('express');
-    const app = express();
-    app.use(express.json());
-    const response = await axios.get('https://graph.microsoft.com/v1.0/me/mailfolders/inbox/messages?$select=subject,from,receivedDateTime&$top=25&$orderby=receivedDateTime%20DESC', {
-      headers:{
-        Accept: 'application/json',
-        Authorization: 
-      } 
-    });
-    console.log(response.data)
-    return { dados: response.data };
-  }*/
-
-}
+}}
