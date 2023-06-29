@@ -6,7 +6,7 @@ export const AppDataSource = new DataSource({
   username: 'pguser',
   password: 'pgpassword',
   database: 'crud',
-  entities: ['*/src/users/entities/*{.ts,.js}'],
+  entities: [__dirname + '/**/*.entity.{js,ts}'],
   synchronize: true,
 });
 

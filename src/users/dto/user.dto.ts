@@ -1,4 +1,4 @@
-export class UserDto {
+export interface IUser {
   name: string;
   cargo: string;
   matricula: string;

@@ -8,13 +8,13 @@ export class AuthService {
 
   async validateUser(userEmail: string, password: string) {
     const user = await this.usersService.findUserByEmail(userEmail);
-    const validPassword = compareSync(password, user.password);
+    const validPassword = compareSync(password, user.senha);
     if(user.demitido){
      throw new Error("You haven't access");
     }
     if (validPassword) {
-      const { name, email, cargo } = user
-      return { name, email, cargo }
+      const { nome, email, cargo } = user
+      return { nome, email, cargo }
     }
   }
 }
