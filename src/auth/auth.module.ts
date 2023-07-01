@@ -13,6 +13,7 @@ import { LocalStrategy } from './strategy/local.strategy';
       signOptions: {expiresIn: '5000s' },
   })],
   providers: [AuthService, LocalStrategy, JwtStrategy, AuthController],
+  controllers: [AuthController],
   exports: [AuthController]
 })
 export class AuthModule {}

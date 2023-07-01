@@ -8,7 +8,6 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtGuard } from './guard/jwt-auth.guard';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 
 @Controller('auth')
@@ -17,17 +16,20 @@ export class AuthController {
   @SetMetadata('isPublic', true)
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: any){
+  async login(@Request() req: any ){
+    console.log('USER IN REQUEST', req.user)
     return await this.authService.login(req.user)
   }
 
-  @UseGuards(JwtGuard)
-  @Get('/me')
-  getProfile(@Request() req: any) {
-    if (!req || !req.user) {
+  @Get('/profile')
+  async getProfile(@Request() req: any) {
+    if (!req) {
+      console.log('AQUI')
       throw new BadRequestException('Invalid request');
     }
-    return req.user;
+    // console.log(req)
+    const profile = await this.authService.getProfile(req.user)
+    return profile;
   }
 
 }

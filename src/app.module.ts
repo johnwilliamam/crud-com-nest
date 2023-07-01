@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { EmployeeService, UsersService } from './users/users.service';
+import { UsersService } from './users/users.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -14,7 +14,7 @@ import { EmployeeService, UsersService } from './users/users.service';
     AppService
   ],
   controllers: [AppController],
-  providers: [UsersService, EmployeeService, AuthModule, AppService]
+  providers: [UsersService, AuthModule, AppService]
 })
 export class AppModule {
   constructor() { }

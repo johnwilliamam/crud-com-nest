@@ -9,10 +9,10 @@ import { AppService } from './app.service';
 export class AppController {
 constructor(private readonly hello: AppService) {}
 @UseGuards(AuthGuard('local'))
-@Post('auth/login')
-async login(@Request() req){
-  return req.user;
-}
+// @Post('auth/login')
+// async login(@Request() req){
+//   return req.user;
+// }
 @Post('/teste')
 async teste(@Request() req) {
   console.log(req.data);

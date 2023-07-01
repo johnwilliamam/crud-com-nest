@@ -11,6 +11,7 @@ export class AuthService {
   async validateUser(userEmail: string, password: string) {
     const user = await this.usersService.findUserByEmail(userEmail);
     const validPassword = compareSync(password, user.senha);
+    console.log(validPassword);
     if(user.demitido){
      throw new Error("You haven't access");
     }
@@ -29,5 +30,10 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload) 
     }
+  }
+
+  async getProfile(id:string) {
+    const user = await this.usersService.findUserById(id)
+    return user
   }
 }

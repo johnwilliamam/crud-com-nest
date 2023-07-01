@@ -20,6 +20,9 @@ export class UsersService {
   async findUserByEmail(email: string) {
     return await UsersRepository.findByEmail(email);
   }
+  async findUserById(id: string) {
+    return await UsersRepository.findById(id);
+  }
   async createUser(createUserDto: CreateUserDto) {
     const created = await UsersRepository.createUser(createUserDto);
     console.log(created);
@@ -38,26 +41,5 @@ export class UsersService {
     if (!findUser) throw new BadRequestException('User not found');
     await UsersRepository.deleteUser(id);
     return 'User deleted';
-  }
-}
-
-export type Employee = any;
-
-export class EmployeeService {
-  private readonly employee = [
-    {
-      userId: 1,
-      username: 'John',
-      password: 'Teste',
-    },
-    {
-      userId: 2,
-      username: 'William',
-      password: 'guess',
-    },
-  ];
-
-  async findOne(username: string): Promise<Employee | undefined> {
-    return this.employee.find((employee) => employee.username === username);
   }
 }
